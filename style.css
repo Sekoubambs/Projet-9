@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+   
+}
+.container {
+    max-width: 1600px;
+    height: 700px;
+    margin: 0 auto;
+    background-color: #58A4B0;
+}
+
+
+.header {
+    color: white;
+    background-color: rgb(107, 101, 101);
+    height: 100px;
+    display: flex;
+    vertical-align: middle;
+    text-indent: 25px;
+   
+}
+
+
+
+nav a {
+    
+    text-decoration: none;
+    color: #000;
+    background-color: burlywood ;
+    height: 50px;
+    font-family: sans-serif;
+    vertical-align: middle;
+    font-size: 25px;
+    padding: 0 50px;
+  
+}
+
+nav  a:hover{ 
+    background: #ada9a9;
+    height: 50px;
+    }
+
+
+.d-inline-block {
+
+    background-color: burlywood;
+    height: 50px;
+    margin-top: 0;
+   
+}
+
+
+.alert {
+    padding: 10px;
+    background-color: aquamarine;
+    border: 1px solid red;
+    color: #721c24;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-deconnexion {
+    background-color:  #edd4e7;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert.warning {
+    background-color: #fff3cd;
+    border-color: #fffeba;
+    color: #856404;
+}
+
+.alert_error {
+
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    
+}
+
+.list-inline-item {
+    display: flex;
+   text-align: right;
+    color: rgb(142, 66 , 30);
+    text-decoration: none;
+    margin-left: 50px;
+    
+}
+
+.titre {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.formConnexion {
+    text-align: center;
+}
+
+.formConnexion {
+    margin: 10px;
+}
+
+.card {
+    width: 300px;
+    background-color: #b35d5d;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-content {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .card-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  
+  .card-button:hover {
+    background-color: #0056b3;
+  }
+  

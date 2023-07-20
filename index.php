@@ -68,25 +68,37 @@ session_start()
 // CREATE
 
 
-    if (isset($_POST["submitCreate"])) {
+    if (isset($_POST["submitCreateFilm"])) {
         $nomFilm = $_POST['Nom_du_film'];
         $dateDeSortie = $_POST['dateDeSortie'];
         $duree = $_POST['Durée'];
         $affiche = $_POST['affiche'];
-        $nomRealisateur = $_POST['Nom_réalisateur'];
-        $prenomRealisateur = $_POST['Prenom_réalisateur'];
-        $nomActeur = $_POST['Nom_acteur'];
-        $prenomActeur = $_POST['Prenom_acteur'];
         $genre = $_POST['genre'];
 
         $sql = "INSERT INTO `film`(`Nom_du_film`, `dateDeSortie`, `Durée`, `affiche`) VALUES ('$nomFilm','$dateDeSortie','$duree','$affiche')";
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
 
+        header("refresh:1;http://localhost/projet%209/index.php?page=settings");
+    }
+
+
+    if (isset($_POST["submitCreateReal"])) {
+        $nomRealisateur = $_POST['Nom_réalisateur'];
+        $prenomRealisateur = $_POST['Prenom_réalisateur'];
+    
         $sql = "INSERT INTO `réalisateur`(`Nom_réalisateur`, `Prenom_réalisateur`) VALUES ('$nomRealisateur','$prenomRealisateur')";
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
 
+        header("refresh:1;http://localhost/projet%209/index.php?page=settings");
+    }
+
+
+    if (isset($_POST["submitCreateActeur"])) {
+        $nomActeur = $_POST['Nom_acteur'];
+        $prenomActeur = $_POST['Prenom_acteur'];
+    
         $sql = "INSERT INTO `acteur`(`Nom_acteur`, `Prenom_acteur`) VALUES ('$nomActeur','$prenomActeur')";
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
@@ -95,22 +107,15 @@ session_start()
     }
 
 
+  
+
+
+
 // Read
 
-        $sql = "SELECT * FROM `film`";
-        $stmt = $dbconnect->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      
-        foreach ($result as $value) {
-            echo '<div class="card">';
-            echo '<h3>' . $nomFilm . '</h3>';
-            echo '<p><strong>Date:</strong> ' . $dateDeSortie . '</p>;
-            echo '<p><strong>Durée:</strong> ' . $duree .  minutes '</p>;
-            <img src="' . $affiche . '" alt="Affiche du film">;
-            </div>';
-              }
-      
+          
+   
+              
 
 ?>
 
@@ -177,7 +182,28 @@ if (isset($_POST['submit']) && ($_POST['identifiant'] == 'sekoubambs' && $_POST[
         
         if (isset($_GET['page']) && $_GET['page'] == "user" && !empty($_SESSION) ) {
 
-
+            $sql = "SELECT * FROM `film`";
+            $stmt = $dbconnect->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            ?>
+          
+            <section class = container>
+    
+            <?php 
+            
+            foreach ($result as $film) {
+                echo '<div class="card">';
+                echo '<h3>' . $film['Nom_du_film'] . '</h3>';
+                echo '<img src="' . $film['affiche'] . '" alt="' . $film['Nom_du_film'] . '" width="75">';
+                echo '<p>Date de sortie : ' . $film['dateDeSortie'] . '</p>';
+                echo '<p>Durée : ' . $film['Durée'] . ' minutes</p>';
+                echo '</div>';
+    
+                
+            }        
+    
     }  
         ?>
          
@@ -191,19 +217,11 @@ if (isset($_POST['submit']) && ($_POST['identifiant'] == 'sekoubambs' && $_POST[
         
         if (isset($_GET['page']) && $_GET['page'] == 'settings' && !empty($_SESSION)){ 
 
+            echo   '<br>';
              echo   '<form method="post">';
              echo   '<input type="text" name="Nom_du_film" placeholder="Nom du film">';
              echo   '<br>';
-             echo   '<br>';
-             echo   '<input type="text" name="Nom_réalisateur" placeholder="Nom du réalisateur">';
-             echo   '<br>';
-             echo   '<input type="text" name="Prenom_réalisateur" placeholder="Prénom du réalisateur">';
-             echo   '<br>';
-             echo   '<input type="text" name="Nom_acteur" placeholder="Nom Acteur">';
-             echo   '<br>';
-             echo   '<input type="text" name="Prenom_acteur" placeholder="Prénom Acteur">';
-             echo   '<br>';
-             echo   '<input type="date" name="dateDeSortie">';
+             echo   '<p>Date<p> <input type="date" name="dateDeSortie">';
              echo   '<br>';
              echo   '<input type="number" name="Durée" placeholder="Durée">';
              echo   '<br>';
@@ -211,7 +229,22 @@ if (isset($_POST['submit']) && ($_POST['identifiant'] == 'sekoubambs' && $_POST[
              echo   '<br>';
              echo   '<input type="url" name="affiche" placeholder="Affiche">';
              echo   '<br>';
-             echo   '<input type="submit" name="submitCreate" value="Ajouter film">';
+             echo   '<input type="submit" name="submitCreateFilm" value="Ajouter film">';
+             echo   '<br>';
+             echo   '<br>';
+             echo   '<input type="text" name="Nom_réalisateur" placeholder="Nom du réalisateur">';
+             echo   '<br>';
+             echo   '<input type="text" name="Prenom_réalisateur" placeholder="Prénom du réalisateur">';
+             echo   '<br>';
+             echo   '<input type="submit" name="submitCreateReal" value="Ajouter Réalisateur">';
+             echo   '<br>';
+             echo   '<br>';
+             echo   '<input type="text" name="Nom_acteur" placeholder="Nom Acteur">';
+             echo   '<br>';
+             echo   '<input type="text" name="Prenom_acteur" placeholder="Prénom Acteur">';
+             echo   '<br>';
+             echo   '<input type="submit" name="submitCreateActeur" value="Ajouter Acteur">';
+             echo   '<br>';
              echo   '<br>';
              echo   '<br>';
              echo   '<br>';

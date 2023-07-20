@@ -11,8 +11,7 @@ body {
    
 }
 .container {
-    max-width: 1600px;
-    height: 700px;
+
     margin: 0 auto;
     background-color: #58A4B0;
 }
@@ -118,7 +117,7 @@ nav  a:hover{
 }
 
 .card {
-    width: 300px;
+   
     background-color: #b35d5d;
     border-radius: 8px;
     padding: 20px;

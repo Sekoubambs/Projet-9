@@ -79,7 +79,7 @@ session_start()
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
 
-        header("refresh:1;http://localhost/projet%209/index.php?page=settings");
+        header("refresh:1;http://localhost/marvel/Projet-9/index.php?page=settings");
     }
 
 
@@ -91,7 +91,7 @@ session_start()
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
 
-        header("refresh:1;http://localhost/projet%209/index.php?page=settings");
+        header("refresh:1;http://localhost/marvel/Projet-9/index.php?page=settings");
     }
 
 
@@ -103,7 +103,7 @@ session_start()
         $stmt = $dbconnect->prepare($sql);
         $stmt->execute();
 
-        header("refresh:1;http://localhost/projet%209/index.php?page=settings");
+        header("refresh:1;http://localhost/marvel/Projet-9/index.php?page=settings");
     }
 
 
@@ -167,44 +167,80 @@ if (isset($_POST['submit']) && ($_POST['identifiant'] == 'sekoubambs' && $_POST[
 
   if (isset($_GET['page']) && $_GET['page'] == "accueil" && !empty($_SESSION)) {
       ?>
-      <h1>Bonjour et bienvenue sur votre page d'accueil !!!</h1>
       <p class="alert-success">Vous êtes maintenant Connecté</p>
       <?php
+              header("refresh:1;http://localhost/marvel/Projet-9/index.php?page=user");
+
       }
 
 
 // *********************************************** User ********************************************************************************************
 
 
-        if (isset($_GET['page']) && $_GET['page'] == 'user' && empty($_SESSION)){ ?>
-                <p class="alert warning">Vous devez être connecté pour pouvoir avoir accès à cette partie du site</p>
-            <?php }
-        
-        if (isset($_GET['page']) && $_GET['page'] == "user" && !empty($_SESSION) ) {
+if (isset($_GET['page']) && $_GET['page'] == 'user' && empty($_SESSION)) {
+    
+        echo '<p class="alert warning">Vous devez être connecté pour pouvoir avoir accès à cette partie du site</p>';
 
-            $sql = "SELECT * FROM `film`";
-            $stmt = $dbconnect->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-            ?>
-          
-            <section class = container>
-    
-            <?php 
-            
-            foreach ($result as $film) {
-                echo '<div class="card">';
-                echo '<h3>' . $film['Nom_du_film'] . '</h3>';
-                echo '<img src="' . $film['affiche'] . '" alt="' . $film['Nom_du_film'] . '" width="75">';
-                echo '<p>Date de sortie : ' . $film['dateDeSortie'] . '</p>';
-                echo '<p>Durée : ' . $film['Durée'] . ' minutes</p>';
-                echo '</div>';
-    
-                
-            }        
-    
-    }  
+} else if (isset($_GET['page']) && $_GET['page'] == "user" && !empty($_SESSION)) {
+
+
+    // Fetch tous les acteur à partir de la table "acteur"
+        $sqlActeurs = "SELECT * FROM `acteur`";
+        $stmtActeurs = $dbconnect->prepare($sqlActeurs);
+        $stmtActeurs->execute();
+        $acteurs = $stmtActeurs->fetchAll(PDO::FETCH_ASSOC);
+
+    // Input pour filtrer les acteurs par film
+        echo '<form method="POST">';
+        echo '<select name="acteur">';
+        echo '<option value="">-- Sélectionner un acteur --</option>';
+    foreach ($acteurs as $acteur) {
+        echo '<option value="' . $acteur['id'] . '">' . $acteur['Prenom_acteur'] . ' ' . $acteur['Nom_acteur'] . '</option>';
+    }
+        echo '</select>';
+        echo '<input type="submit" name="submitActeur"  >';
+        echo '</form>';
+
+    // Rechercher des films dans la table "film" en fonction de la sélection
+    if (isset($_POST['submitActeur'])) {
+      
+        $acteurSelectionne = $_POST['acteur'];
+
+
+
+        $sqlListeActeurs ="SELECT film.id_film , film.Nom_du_film, film.dateDeSortie, film.Durée, film.affiche , acteur.id_acteur 
+        FROM `film` 
+        INNER JOIN `joue_dans` on film.id_film = joue_dans.id_film 
+        INNER JOIN `acteur` on joue_dans.id_acteur = acteur.id_acteur 
+        WHERE acteur.Nom_acteur  AND acteur.Prenom_acteur ;";
+       
+        $stmtListeActeurs = $dbconnect->prepare($sqlListeActeurs);
+        $stmtListeActeurs->execute();
+        $ListeActeurs =  $stmtListeActeurs->fetchAll(PDO::FETCH_ASSOC);
+ 
+    foreach ($ListeActeurs as $film ) {
+        echo '<section class="container">';
+        echo '<div class="card">';
+        echo '<h3>' . $film['Nom_du_film'] . '</h3>';
+        echo '<img src="' . $film['affiche'] . '" alt="' . $film['Nom_du_film'] . '" width="150">';
+        echo '<p>Date de sortie : ' . $film['dateDeSortie'] . '</p>';
+        echo '<p>Durée : ' . $film['Durée'] . ' minutes</p>';
+        echo '</div>';
+    }
+        echo '</section>';
+}
+      
+   
+
+   } else {
+        // Si aucun acteur n'est sélectionné, faire un fetch sur tous les films
+        $sql = "SELECT * FROM `film`";
+        $stmt = $dbconnect->prepare($sql);
+        $stmt->execute();
+    }
+
+ 
+
         ?>
          
         
@@ -316,7 +352,7 @@ if (isset($_POST['submit']) && ($_POST['identifiant'] == 'sekoubambs' && $_POST[
             session_destroy(); ?>
             <p class="alert-deconnexion">Vous êtes maintenant déconnecté</p>
             <?php
-                         header("refresh:1;http://localhost/projet%209/index.php?page=accueil");
+        header("refresh:1;http://localhost/marvel/Projet-9/index.php?page=accueil");
 
              }
         ?>

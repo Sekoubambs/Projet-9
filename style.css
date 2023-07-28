@@ -4,6 +4,7 @@
 }
 
 body {
+  
     text-align: center;
     display: flex;
     justify-content: center;
@@ -12,21 +13,26 @@ body {
 }
 .container {
 
-    margin: 0 auto;
-    background-color: #58A4B0;
-}
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    width: 1000px;
+   
+  }
 
 
 .header {
+
+    
     color: white;
-    background-color: rgb(107, 101, 101);
-    height: 100px;
+    height: 250px;
+    width: 500px;
     display: flex;
     vertical-align: middle;
     text-indent: 25px;
    
 }
-
 
 
 nav a {
@@ -38,7 +44,7 @@ nav a {
     font-family: sans-serif;
     vertical-align: middle;
     font-size: 25px;
-    padding: 0 50px;
+    padding: 0 50px;   
   
 }
 
@@ -116,12 +122,23 @@ nav  a:hover{
     margin: 10px;
 }
 
+
+
+
 .card {
    
-    background-color: #b35d5d;
-    border-radius: 8px;
-    padding: 20px;
+    margin-top: 50px;
+    width: 200px;
+    height: 350px;
+    border: 2px solid #1f1d1d;
+    border-radius: 5px;
+    overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    flex-wrap: wrap;
+    background-color: darkgoldenrod;
+    color: white;
+    position: relative;
   }
   
   .card-title {
